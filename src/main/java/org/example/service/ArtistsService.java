@@ -1,7 +1,7 @@
 package org.example.service;
 
 import org.example.models.Artist;
-import org.example.repository.ArtistDBRepository;
+//import org.example.repository.ArtistDBRepository;
 import org.example.repository.ArtistRepository;
 
 public class ArtistsService {

@@ -1,37 +1,67 @@
 package org.example.models;
 
-public class Artist extends Entity {
+import java.util.List;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
-    private String genres;
-    private String albums;
+@Entity
+@Table(name = "artists")
+public class Artist{
 
-    public Artist(int id, String name, String genres, String albums) {
-        super.id = id;
-        super.name = name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> genres;
+
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Album> albums;
+
+    public Artist(Long id, String name, List<String> genres, List<Album> albums) {
+        this.id = id;
+        this.name = name;
         this.genres = genres;
         this.albums = albums;
     }
 
-    public String getGenres() {
+    public Artist() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(String genres) {
+    public void setGenres(List<String> genres) {
         this.genres = genres;
     }
 
-    public String getAlbums() {
+    public List<Album> getAlbums() {
         return albums;
     }
 
-    public void setAlbums(String albums) {
+    public void setAlbums(List<Album> albums) {
         this.albums = albums;
     }
 
     @Override
     public String toString() {
-        return "Artist {" + "id=" + id + ",name=" + (name != null ? name.trim() : "N/A") + "'" +",genres=" + (genres != null ? genres.trim() : "N/A") +
-                ",albums=" + (albums != null ? albums.trim() : "N/A") +
+        return "Artist {" + "id=" + id + ",name=" + (name != null ? name.trim() : "N/A") + "'" +",genres=" + genres  +
+                ",albums=" + albums +
                 '}';
     }
 
