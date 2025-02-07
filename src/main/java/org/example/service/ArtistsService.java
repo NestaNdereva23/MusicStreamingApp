@@ -16,4 +16,8 @@ public class ArtistsService {
     public Iterable<Artist> getAllArtists() {
         return artistRepository.findAllArtists();
     }
+
+    public Artist getArtistByName(String name) {
+        return artistRepository.findByName(name);
+    }
 }

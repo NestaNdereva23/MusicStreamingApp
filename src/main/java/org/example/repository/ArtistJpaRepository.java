@@ -26,4 +26,16 @@ public class ArtistJpaRepository extends ArtistRepository {
         }
     }
 
+    @Override
+    public Artist findByName(String name) {
+        EntityManager em = emf.createEntityManager();
+        try {
+             return em.createQuery("SELECT a FROM Artist a WHERE a.name = :name", Artist.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+
 }

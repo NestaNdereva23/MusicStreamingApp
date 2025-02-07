@@ -20,6 +20,7 @@ public class MusicStreamingAppUI {
         System.out.println("2. Show all albums");
         System.out.println("3. Show all songs");
         System.out.println("4. Show all playlists");
+        System.out.println("6. Find artist by name");
         System.out.println("5. Exit");
     }
 
@@ -32,6 +33,9 @@ public class MusicStreamingAppUI {
             switch (choice) {
                 case 1:
                     handledisplayAllArtists();
+                    break;
+                case 6:
+                    handlefindArtistByName();
                     break;
                 case 2,3,4:
                     System.out.println("Not implemented yet");
@@ -47,5 +51,12 @@ public class MusicStreamingAppUI {
         for (Artist artist : artists){
             System.out.println(artist);
         }
+    }
+
+    private void handlefindArtistByName() {
+        System.out.println("Enter artist name: ");
+        String name = scanner.next();
+        Artist artist = artistsService.getArtistByName(name);
+        System.out.println(artist);
     }
 }
