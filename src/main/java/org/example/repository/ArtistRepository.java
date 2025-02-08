@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class ArtistRepository {
 
-    private Map<Long, Artist> artists;
+    private Map<Integer, Artist> artists;
 
     public ArtistRepository() {
         this.artists = new HashMap<>();
@@ -18,6 +18,11 @@ public class ArtistRepository {
     }
 
     public Artist findByName(String name) {
-        return artists.get(name);
+        for (Artist artist : artists.values()) {
+            if (artist.getName().equals(name)) {
+                return artist;
+            }
+        }
+        return null;
     }
 }

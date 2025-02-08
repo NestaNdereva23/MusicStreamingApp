@@ -6,8 +6,7 @@ import org.example.repository.ArtistRepository;
 
 public class ArtistsService {
 
-    private ArtistRepository artistRepository;
-//    private ArtistDBRepository artistDBRepository;
+    private final ArtistRepository artistRepository;
 
     public ArtistsService(ArtistRepository artistRepository) {
         this.artistRepository = artistRepository;

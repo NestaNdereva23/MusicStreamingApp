@@ -11,30 +11,30 @@ public class ArtistJpaRepository extends ArtistRepository {
     private final EntityManagerFactory emf;
 
     public ArtistJpaRepository(){
+
         this.emf = Persistence.createEntityManagerFactory("music-app");
     }
 
     @Override
     public List<Artist> findAllArtists() {
-        EntityManager em = emf.createEntityManager();
-        
-        try {
-//          return em.createQuery("SELECT a FROM Artist a LEFT JOIN FETCH a.genres", Artist.class).getResultList();
-            return em.createQuery("from Artist", Artist.class).getResultList();
+
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.createQuery("SELECT a FROM Artist a LEFT JOIN FETCH a.genres", Artist.class)
+                    .getResultList();
+//            return em.createQuery("from Artist", Artist.class).getResultList();
         } finally {
-            em.close();
+            emf.close();
         }
     }
 
     @Override
     public Artist findByName(String name) {
-        EntityManager em = emf.createEntityManager();
-        try {
-             return em.createQuery("SELECT a FROM Artist a WHERE a.name = :name", Artist.class)
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.createQuery("SELECT a FROM Artist a WHERE a.name = :name", Artist.class)
                     .setParameter("name", name)
                     .getSingleResult();
         } finally {
-            em.close();
+            emf.close();
         }
     }
 

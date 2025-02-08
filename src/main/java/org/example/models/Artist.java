@@ -60,8 +60,10 @@ public class Artist{
 
     @Override
     public String toString() {
-        return "Artist {" + "id=" + id + ",name=" + (name != null ? name.trim() : "N/A") + "'" +",genres=" + genres  +
-                ",albums=" + albums +
+        return "Artist {" + "id=" + id +
+                ",name=" + (name != null ? name.trim() : "N/A") + "'" +
+                ",genres=" + genres  +
+                ",albums=" + (albums != null ? albums.size(): 0) +
                 '}';
     }
 

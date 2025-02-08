@@ -1,6 +1,8 @@
 package org.example.userinterface;
 
+import org.example.models.Album;
 import org.example.models.Artist;
+import org.example.service.AlbumService;
 import org.example.service.ArtistsService;
 
 import java.util.Scanner;
@@ -8,9 +10,11 @@ import java.util.Scanner;
 public class MusicStreamingAppUI {
 
     private ArtistsService artistsService;
+    private AlbumService albumService;
 
-    public MusicStreamingAppUI(ArtistsService artistsService) {
+    public MusicStreamingAppUI(ArtistsService artistsService, AlbumService albumService) {
         this.artistsService = artistsService;
+        this.albumService = albumService;
     }
     Scanner scanner = new Scanner(System.in);
 
@@ -34,10 +38,13 @@ public class MusicStreamingAppUI {
                 case 1:
                     handledisplayAllArtists();
                     break;
+                case 2:
+                    handledisplayAllAlbums();
+                    break;
                 case 6:
                     handlefindArtistByName();
                     break;
-                case 2,3,4:
+                case 3,4:
                     System.out.println("Not implemented yet");
                     break;
             }
@@ -56,7 +63,26 @@ public class MusicStreamingAppUI {
     private void handlefindArtistByName() {
         System.out.println("Enter artist name: ");
         String name = scanner.next();
-        Artist artist = artistsService.getArtistByName(name);
-        System.out.println(artist);
+        
+        try{
+            Artist artist = artistsService.getArtistByName(name);
+            System.out.println(artist);
+        }
+        catch (Exception e){
+            System.out.println("Artist not found");
+        }
+        
     }
+
+    //handle displaying all albums
+    private void handledisplayAllAlbums() {
+        Iterable<Album> albums = albumService.getAllAlbums();
+        displayAlbums(albums);
+    }
+    public void displayAlbums(Iterable<Album> albums) {
+        for (Album album : albums){
+            System.out.println(album);
+        }
+    }
+
 }

@@ -15,10 +15,10 @@ public class Album{
     private String title;
     private int releaseYear;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> songs;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "artist_id")
     private Artist artist;
 
@@ -75,8 +75,11 @@ public class Album{
     //Return a string representation of the object.
     @Override
     public String toString() {
-        return "Artist {" + "id=" + id + ",title=" + (title != null ? title.trim() : "N/A") + "'" +",releaseYear=" + releaseYear +
-                ",songs=" + songs + ",artist=" + artist +
+        return "Artist {" + "id=" + id
+                + ", title=" + (title != null ? title.trim() : "N/A") + "'"
+                +", releaseYear=" + releaseYear +
+                ", songs=" + songs
+                + ", artist=" + (artist != null ? artist.getName().trim() : "N/A") +
                 '}';
     }
 }
