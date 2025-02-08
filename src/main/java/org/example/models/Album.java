@@ -16,7 +16,8 @@ public class Album{
     private int releaseYear;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> songs;
+    @OneToMany(mappedBy = "album_name", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Songs> songs;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "artist_id")
@@ -27,7 +28,7 @@ public class Album{
     }
 
     //constructor
-    public Album(Long id, String title, int releaseYear, List<String> songs, Artist artist) {
+    public Album(Long id, String title, int releaseYear, List<Songs> songs, Artist artist) {
         this.id = id;
         this.title = title;
         this.releaseYear = releaseYear;
@@ -57,11 +58,11 @@ public class Album{
         this.releaseYear = releaseYear;
     }
 
-    public List<String> getSongs() {
+    public List<Songs> getSongs() {
         return songs;
     }
 
-    public void setSongs(List<String> songs) {
+    public void setSongs(List<Songs> songs) {
         this.songs = songs;
     }
     public Artist getArtist() {
@@ -78,7 +79,7 @@ public class Album{
         return "Artist {" + "id=" + id
                 + ", title=" + (title != null ? title.trim() : "N/A") + "'"
                 +", releaseYear=" + releaseYear +
-                ", songs=" + songs
+                ", songs=" + (songs != null ? songs.size() : 0)
                 + ", artist=" + (artist != null ? artist.getName().trim() : "N/A") +
                 '}';
     }

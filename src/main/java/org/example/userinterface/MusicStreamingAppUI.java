@@ -4,6 +4,8 @@ import org.example.models.Album;
 import org.example.models.Artist;
 import org.example.service.AlbumService;
 import org.example.service.ArtistsService;
+import org.example.service.SongsService;
+import org.example.models.Songs;
 
 import java.util.Scanner;
 
@@ -11,10 +13,12 @@ public class MusicStreamingAppUI {
 
     private ArtistsService artistsService;
     private AlbumService albumService;
+    private SongsService songsService;
 
-    public MusicStreamingAppUI(ArtistsService artistsService, AlbumService albumService) {
+    public MusicStreamingAppUI(ArtistsService artistsService, AlbumService albumService, SongsService songsService) {
         this.artistsService = artistsService;
         this.albumService = albumService;
+        this.songsService = songsService;
     }
     Scanner scanner = new Scanner(System.in);
 
@@ -41,10 +45,13 @@ public class MusicStreamingAppUI {
                 case 2:
                     handledisplayAllAlbums();
                     break;
+                case 3:
+                    handledisplayAllSongs();
+                    break;
                 case 6:
                     handlefindArtistByName();
                     break;
-                case 3,4:
+                case 4:
                     System.out.println("Not implemented yet");
                     break;
             }
@@ -82,6 +89,18 @@ public class MusicStreamingAppUI {
     public void displayAlbums(Iterable<Album> albums) {
         for (Album album : albums){
             System.out.println(album);
+        }
+    }
+
+    //handle displaying all songs
+    private void handledisplayAllSongs(){
+        Iterable<Songs> songs = songsService.getAllSongs();
+        displaySongs(songs);
+    }
+
+    public void displaySongs(Iterable<Songs> songs) {
+        for (Songs song : songs){
+            System.out.println(song);
         }
     }
 
