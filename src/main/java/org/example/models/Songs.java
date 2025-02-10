@@ -22,14 +22,19 @@ public class Songs {
     @JoinColumn(name = "album_id")
     private Album album_name;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "playlist_id", nullable = false)
+    private Playlist playlist;
+
     public Songs() {
     }
 
-    public Songs(Long song_id, String song_name, Artist artist_name, Album album_name) {
+    public Songs(Long song_id, String song_name, Artist artist_name, Album album_name, Playlist playlist) {
         this.song_id = song_id;
         this.song_name = song_name;
         this.artist_name = artist_name;
         this.album_name = album_name;
+        this.playlist = playlist;
     }
 
     public Long getSong_id() {
@@ -55,6 +60,12 @@ public class Songs {
     }
     public void setAlbum_name(Album album_name) {
         this.album_name = album_name;
+    }
+    public Playlist getPlaylist() {
+        return playlist;
+    }
+    public void setPlaylist(Playlist playlist) {
+        this.playlist = playlist;
     }
 
     @Override
